@@ -15,7 +15,7 @@ export default class DashboardLeftRail extends React.Component {
         <ul className="sidebar navbar-nav">
                 <li className="nav-item active">
                    <a className="nav-link" href="#">
-                        <span>Dashboard</span>
+                        <div>Dashboard</div>
                         <ul>
                             <li>Fun</li>
                          </ul>
