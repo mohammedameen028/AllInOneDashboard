@@ -4,103 +4,89 @@ import '../App.css';
 import '../all.min.css';
 import '../dataTables.bootstrap4.css';
 import '../sb-admin.css';
-
 import DashboardHeader from './DashboardHeader';
 import DashboardLeftRail from './DashboardLeftRail';
 import DashboardFooter from './DashboardFooter';
-import data from '../Response_data.json';
-
-
 
 export default class Dashboard extends React.Component {
 
   constructor(props){
     super(props);
-
     this.state = {
-          items : []
-    }
-    
-    
+                  data:'',
+                  items:[]
+                  } 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleChange(e){
+    this.setState({data: e.target.value})
     
   }
-    
-  componentDidMount() {
-    
-      console.log("Data is here :::",data);
-      console.log("inside the matches::",data.matches);
 
-      this.setState({
-        items: data.matches
-      })
-      
+  handleSubmit(e){
+    const word = this.state.data
+    const api_key = process.env.REACT_APP_DICT_API_KEY
     
-      if(this.isEmpty(data))
-      {
-        console.log("data is object!!!");
-        
-      }else{
-
-        console.log("data is not the object");
-        
-      }
-      
+    fetch(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${api_key}`)
+      .then(resp => {
+        console.log("REsp::",resp)
+        resp.json().then(json =>{
+          console.log("JSON::::",json)
+          this.setState({
+            items:json
+          })
+        })
+    } )
+    e.preventDefault();
+  }
     
-    } 
-    
-    isEmpty(obj)
-    {
-      for(var key in obj){
-        if(obj.hasOwnProperty(key))
-          return false;
-        
-      }
-      return true;
-    }
-
-    _renderObject(items){
-      return Object.entries(items).map(([key, value], i) => {
-        return (
-              <tbody>
-                <td>{value.team1.name} vs {value.team2.name}</td>
-                <td>{value.series.name}</td>
-                <td>{value.match_desc}</td>
-                <td>{value.venue.location}</td>
-                <td>{value.state_title}</td>
-                <td>{value.score && value.score.batting && value.score.batting.score}</td>
-              </tbody>
-        )
-      })
-    }
     render() {
+      var {items,data} = this.state
 
-      var {items} = this.state
       return(
         <div className="App">
           <DashboardHeader/>
           <div id="wrapper">
-            <DashboardLeftRail triggerSubDomain={this.calledDomain}/>
+            <DashboardLeftRail/>
           <div id="content-wrapper">
             <div className="container-fluid">
               <div className="card mb-3">
                 <div className="card-header">
-                  Results
+                  Dictionary
                 </div>
                 <div>
+                  <form onSubmit={this.handleSubmit}>
+                    <label>
+                      Enter Word here:
+                        <input type="text" value={data} onChange={this.handleChange}/>
+                    </label>
+                    <input type="submit" value="Submit" />
+                  </form>
+                  <div>
                   <div className="table-responsive">
                     <table className="table table-bordered" id="dataTable" width="100%">
-                      <thead>
-                        <th>Match</th>
-                        <th>Series</th>
-                        <th>Match_desc</th>
-                        <th>Venue</th>
-                        <th>status</th>
-                        <th>status</th>
-                      </thead>
-                          {this._renderObject(items)}
-                    </table>
-                  </div>
-                  </div>
+                              <tbody>
+                      {items.map((i,k) => {
+                        return(
+                         
+                              <tr key={k}>
+                                {i.fl?<td>
+                                  <a>{i.fl}</a>
+                                </td>: null}
+                                <td>
+                                {i.shortdef?i.shortdef: i}
+                                </td>
+                              </tr>
+                           
+                        )
+                      })}
+                      </tbody>
+                       </table>
+                          </div>
+                    </div>
+                </div>
               </div>
             </div>
             <DashboardFooter/>
