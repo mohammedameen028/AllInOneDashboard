@@ -1,0 +1,1 @@
+export const dictionaryAPI = `https://dictionaryapi.com/api/v3/references/collegiate/json/`
