@@ -8,13 +8,16 @@ import DashboardHeader from "./DashboardHeader";
 import DashboardLeftRail from "./DashboardLeftRail";
 import DashboardFooter from "./DashboardFooter";
 import { dictionaryAPI } from "../properties";
+import Speech from 'react-speech';
+
 
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: "",
-      items: []
+      items: [],
+      isLoading: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,9 +44,14 @@ export default class Dashboard extends React.Component {
     e.preventDefault();
   }
 
+  
+
   render() {
     var { items, data } = this.state;
     console.log("items::", items);
+
+   
+
 
     return (
       <div className="App">
@@ -65,6 +73,10 @@ export default class Dashboard extends React.Component {
                       />
                     </label>
                     <input type="submit" value="Submit" />
+                    <Speech   
+                      
+                      text="Please enter the Word to find the meaning of it!!!" />
+
                   </form>
                   <div>
                     {items.length <= 0 ? null : (
@@ -92,6 +104,9 @@ export default class Dashboard extends React.Component {
                                     </td>
                                   ) : null}
                                   <td>{i.shortdef ? i.shortdef : i}</td>
+                                  <Speech
+                                    text={JSON.stringify(i.shortdef)}
+                                  />
                                 </tr>
                               );
                             })}
@@ -106,6 +121,7 @@ export default class Dashboard extends React.Component {
             <DashboardFooter />
           </div>
         </div>
+        <script src="https://code.responsivevoice.org/responsivevoice.js?key=7QaZPORy"></script>
       </div>
     );
   }
