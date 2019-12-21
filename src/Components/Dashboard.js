@@ -1,100 +1,128 @@
-import React from 'react';
+import React from "react";
 
-import '../App.css';
-import '../all.min.css';
-import '../dataTables.bootstrap4.css';
-import '../sb-admin.css';
-import DashboardHeader from './DashboardHeader';
-import DashboardLeftRail from './DashboardLeftRail';
-import DashboardFooter from './DashboardFooter';
+import "../App.css";
+import "../all.min.css";
+import "../dataTables.bootstrap4.css";
+import "../sb-admin.css";
+import DashboardHeader from "./DashboardHeader";
+import DashboardLeftRail from "./DashboardLeftRail";
+import DashboardFooter from "./DashboardFooter";
+import { dictionaryAPI } from "../properties";
+import Speech from 'react-speech';
+
 
 export default class Dashboard extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-                  data:'',
-                  items:[]
-                  } 
+      data: "",
+      items: [],
+      isLoading: false
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-  handleChange(e){
-    this.setState({data: e.target.value})
-    
+
+  handleChange(e) {
+    this.setState({ data: e.target.value });
   }
 
-  handleSubmit(e){
-    const word = this.state.data
-    const api_key = process.env.REACT_APP_DICT_API_KEY
-    
-    fetch(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${api_key}`)
-      .then(resp => {
-        console.log("REsp::",resp)
-        resp.json().then(json =>{
-          console.log("JSON::::",json)
-          this.setState({
-            items:json
-          })
-        })
-    } )
+  handleSubmit(e) {
+    const word = this.state.data;
+    const api_key = process.env.REACT_APP_DICT_API_KEY;
+    let url = `${dictionaryAPI}${word}?key=${api_key}`;
+
+    fetch(url).then(resp => {
+      console.log("REsp::", resp);
+      resp.json().then(json => {
+        console.log("JSON::::", json);
+        this.setState({
+          items: json
+        });
+      });
+    });
     e.preventDefault();
   }
-    
-    render() {
-      var {items,data} = this.state
 
-      return(
-        <div className="App">
-          <DashboardHeader/>
-          <div id="wrapper">
-            <DashboardLeftRail/>
+  
+
+  render() {
+    var { items, data } = this.state;
+    console.log("items::", items);
+
+   
+
+
+    return (
+      <div className="App">
+        <DashboardHeader />
+        <div id="wrapper">
+          <DashboardLeftRail />
           <div id="content-wrapper">
             <div className="container-fluid">
               <div className="card mb-3">
-                <div className="card-header">
-                  Dictionary
-                </div>
+                <div className="card-header">Dictionary</div>
                 <div>
                   <form onSubmit={this.handleSubmit}>
-                    <label>
-                      Enter Word here:
-                        <input type="text" value={data} onChange={this.handleChange}/>
+                    <label style={{ padding: "10px" }}>
+                      <span style={{ margin: "5px" }}>Enter Word here:</span>
+                      <input
+                        type="text"
+                        value={data}
+                        onChange={this.handleChange}
+                      />
                     </label>
                     <input type="submit" value="Submit" />
+                    <Speech   
+                      
+                      text="Please enter the Word to find the meaning of it!!!" />
+
                   </form>
                   <div>
-                  <div className="table-responsive">
-                    <table className="table table-bordered" id="dataTable" width="100%">
-                              <tbody>
-                      {items.map((i,k) => {
-                        return(
-                         
-                              <tr key={k}>
-                                {i.fl?<td>
-                                  <a>{i.fl}</a>
-                                </td>: null}
-                                <td>
-                                {i.shortdef?i.shortdef: i}
-                                </td>
-                              </tr>
-                           
-                        )
-                      })}
-                      </tbody>
-                       </table>
-                          </div>
-                    </div>
+                    {items.length <= 0 ? null : (
+                      <div className="table-responsive">
+                        <table
+                          className="table table-bordered"
+                          id="dataTable"
+                          width="100%"
+                        >
+                          <thead>
+                            <tr>
+                              <th>No.</th>
+                              <th>Type</th>
+                              <th>Meaning</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {items.map((i, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td>{index}</td>
+                                  {i.fl ? (
+                                    <td>
+                                      <a>{i.fl}</a>
+                                    </td>
+                                  ) : null}
+                                  <td>{i.shortdef ? i.shortdef : i}</td>
+                                  <Speech
+                                    text={JSON.stringify(i.shortdef)}
+                                  />
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <DashboardFooter/>
-            </div>
+            <DashboardFooter />
           </div>
         </div>
-      );
-      }
-    }
-
-  
+        <script src="https://code.responsivevoice.org/responsivevoice.js?key=7QaZPORy"></script>
+      </div>
+    );
+  }
+}
