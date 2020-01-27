@@ -3,23 +3,24 @@ import '../App.css';
 import '../all.min.css';
 import '../dataTables.bootstrap4.css';
 import '../sb-admin.css';
+import { NavLink } from 'react-router-dom'
 
 
 export default class DashboardLeftRail extends React.Component {
-
-    
-
-    
     render() {
         return (
         <ul className="sidebar navbar-nav">
                 <li className="nav-item active">
-                   <a className="nav-link" href="#">
-                        <div>Dashboard</div>
+                   <div className="nav-link" href="#">
+                        <span>Dashboard</span>
                         <ul>
-                            <li>Dictionary</li>
+                            <NavLink to="/Dictionary">Dictionary</NavLink>
                          </ul>
-                    </a>
+                         <ul>
+                            <NavLink to="/WeatherConditions">Weather Conditions</NavLink>
+                         </ul>
+                    </div>
+                    
               </li>
             </ul>
         );
