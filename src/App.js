@@ -11,8 +11,7 @@ class App extends Component {
         <Switch>
           <Route
             path="/WeatherConditions"
-            component={WeatherConditions}
-          ></Route>
+            component={WeatherConditions}></Route>
           <Route component={Dashboard}></Route>
         </Switch>
       </BrowserRouter>
