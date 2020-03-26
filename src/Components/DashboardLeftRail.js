@@ -14,11 +14,17 @@ export default class DashboardLeftRail extends React.Component {
                    <div className="nav-link" href="#">
                         <span>Dashboard</span>
                         <ul>
+                            <NavLink to="/Covid19">Covid19 Status</NavLink>
+                         </ul>
+                        <ul>
                             <NavLink to="/Dictionary">Dictionary</NavLink>
                          </ul>
                          <ul>
                             <NavLink to="/WeatherConditions">Weather Conditions</NavLink>
                          </ul>
+                         {/* <ul>
+                            <NavLink to="/User">User</NavLink>
+                         </ul> */}
                     </div>
                     
               </li>

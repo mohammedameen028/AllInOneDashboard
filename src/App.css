@@ -23,6 +23,27 @@
   color: #61dafb;
 }
 
+.flag{
+  margin-left: 10px;
+}
+
+.mainNumbersReports{
+  color:purple
+}
+
+.mainNumbersDeaths{
+  color: red;
+}
+
+.mainNumbersRecovered{
+  color: green;
+}
+
+.upperTable{
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
