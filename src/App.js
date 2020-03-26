@@ -15,12 +15,12 @@ class App extends Component {
             path="/WeatherConditions"
             component={WeatherConditions}></Route>
           <Route
-            path="/Covid19"
-            component={Covid19Status}></Route>
+            path="/Dictionary"
+            component={Dashboard}></Route>
             <Route
             path="/User"
             component={User}></Route>
-          <Route component={Dashboard}></Route>
+          <Route component={Covid19Status}></Route>
         </Switch>
       </BrowserRouter>
     );

@@ -19,9 +19,9 @@ export default class DashboardLeftRail extends React.Component {
                         <ul>
                             <NavLink to="/Dictionary">Dictionary</NavLink>
                          </ul>
-                         <ul>
+                         {/* <ul>
                             <NavLink to="/WeatherConditions">Weather Conditions</NavLink>
-                         </ul>
+                         </ul> */}
                          {/* <ul>
                             <NavLink to="/User">User</NavLink>
                          </ul> */}
