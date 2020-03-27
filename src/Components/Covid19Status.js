@@ -76,19 +76,6 @@ export default class Covid19Status extends React.Component {
                           id="dataTable"
                           width="50%"
                         >
-                            {/* <thead>
-                                <tr>
-                                    <th>
-                                        Reported Cases
-                                    </th>
-                                    <th>
-                                        Total Deaths
-                                    </th>
-                                    <th>
-                                        Total Recovered
-                                    </th>
-                                </tr>
-                            </thead> */}
                             <tbody>
                                 <tr>
                                     <th>
@@ -138,7 +125,10 @@ export default class Covid19Status extends React.Component {
                                     {newData.map((i) => {
                                         return (
                                           <tr>
-                                            <td>{i.name}<span className="flag"><img src={i.flag} width="25px" height="20px"/></span></td>
+                                            <td>
+                                                {i.name}<span className="flag"><img src={i.flag} width="25px" height="20px"/></span>
+                                                <div><span className="smallerText">Today: +{i.deltaCases} cases, +{i.deltaDeaths} deaths</span></div>
+                                            </td>
                                             <td>{i.cases}</td>
                                             <td>{i.reports}</td>
                                             <td>{i.deaths}</td>
