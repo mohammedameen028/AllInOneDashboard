@@ -22,6 +22,7 @@
     "server": "node-env-run server --exec nodemon | pino-colada",
     "dev": "run-p server start"
   },
+  
   "devDependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^4.0.1",
@@ -35,7 +36,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:5000",
   "browserslist": [
     ">0.2%",
     "not dead",
