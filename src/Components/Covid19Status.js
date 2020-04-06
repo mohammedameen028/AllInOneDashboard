@@ -12,7 +12,7 @@ export default class Covid19Status extends React.Component {
 
     
     componentDidMount() {
-        fetch(`/Covid19`).then(resp => {
+        fetch(`https://www.covidvisualizer.com/api`).then(resp => {
             resp.json().then(json => {
               console.log("JSON::::", json);
               this.setState({
