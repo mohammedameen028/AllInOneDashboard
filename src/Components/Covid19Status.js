@@ -29,10 +29,10 @@ export default class Covid19Status extends React.Component {
                 return(
                 <tr>
                 <td>Country:{i.name}</td>
-                <td>Active:{i.reports}</td>
-                <td>Cases:{i.cases}</td>
-                <td>Deaths:{i.deaths}</td>
-                <td>Recovered:{i.recovered}</td>
+                <td>Active:{i.reports.toLocaleString()}</td>
+                <td>Cases:{i.cases.toLocaleString()}</td>
+                <td>Deaths:{i.deaths.toLocaleString()}</td>
+                <td>Recovered:{i.recovered.toLocaleString()}</td>
                 </tr>
                 )
                 })
@@ -82,7 +82,7 @@ export default class Covid19Status extends React.Component {
                                         Reported Cases
                                     </th>
                                     <td className="mainNumbersReports">
-                                        {reports}
+                                        {reports && reports.toLocaleString()}
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,7 +90,7 @@ export default class Covid19Status extends React.Component {
                                         Total Deaths
                                     </th>
                                     <td className="mainNumbersDeaths">
-                                        {deaths}
+                                        {deaths && deaths.toLocaleString()}
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,7 +98,7 @@ export default class Covid19Status extends React.Component {
                                         Total Recovered
                                     </th>
                                     <td className="mainNumbersRecovered">
-                                        {recovered}
+                                        {recovered && recovered.toLocaleString()}
                                     </td>
                                 </tr>
                             </tbody>
@@ -129,10 +129,10 @@ export default class Covid19Status extends React.Component {
                                                 {i.name}<span className="flag"><img src={i.flag} width="25px" height="20px"/></span>
                                                 <div><span className="smallerText">Today: +{i.deltaCases} cases, +{i.deltaDeaths} deaths</span></div>
                                             </td>
-                                            <td>{i.cases}</td>
-                                            <td>{i.reports}</td>
-                                            <td>{i.deaths}</td>
-                                            <td>{i.recovered}</td>
+                                            <td>{i.cases && i.cases.toLocaleString()}</td>
+                                            <td>{i.reports && i.reports.toLocaleString()}</td>
+                                            <td>{i.deaths && i.deaths.toLocaleString()}</td>
+                                            <td>{i.recovered && i.recovered.toLocaleString()}</td>
                                           </tr>
                                         );
                                     }) }
